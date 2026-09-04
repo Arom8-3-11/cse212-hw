@@ -32,6 +32,10 @@ public static class Search {
     /// </summary>
     /// <param name="data">The array of numbers</param>
     /// <param name="target">The number we're looking for</param>
+     
+     
+    //helps with finding and looking through the entire array of numbers and variables
+    // O(n)
     private static int SearchSorted1(int[] data, int target) {
         var count = 0;
         foreach (var item in data) {
@@ -51,6 +55,11 @@ public static class Search {
     /// <param name="target">The number we're looking for</param>
     /// <param name="start">The index of the starting section of the data to look in</param>
     /// <param name="end">The index of the ending section of the data to look in</param>
+    /// 
+    /// 
+    /// 
+    //continuously cuts the search area in half until empty/found
+    //O(2^n)
     private static int SearchSorted2(int[] data, int target, int start, int end) {
         if (end < start)
             return 1; // All done
@@ -63,3 +72,13 @@ public static class Search {
         return 1 + SearchSorted2(data, target, start, middle - 1);
     }
 }
+
+
+
+
+// in order when debugging, this is what each column represents
+// n: # of items in array
+// sort1-count: loops/checking count for SearchSorted1
+// sort2-count: recursive-call count for SearchSorted1
+// sort1-time: ave. runtime SearchSorted1
+// sort2-time; ave runtime SearchSorted2
