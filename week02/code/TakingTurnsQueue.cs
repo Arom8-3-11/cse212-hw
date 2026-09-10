@@ -20,6 +20,7 @@ public class TakingTurnsQueue
     /// <param name="turns">Number of turns remaining</param>
     public void AddPerson(string name, int turns)
     {
+        // Keep the name and turn count together in one Person object.
         var person = new Person(name, turns);
         _people.Enqueue(person);
     }
@@ -37,17 +38,28 @@ public class TakingTurnsQueue
         {
             throw new InvalidOperationException("No one in the queue.");
         }
-        else
-        {
-            Person person = _people.Dequeue();
-            if (person.Turns > 1)
-            {
-                person.Turns -= 1;
-                _people.Enqueue(person);
-            }
 
-            return person;
+        // Take the person at the front before deciding whether they return.
+        Person person = _people.Dequeue();
+        // Record this before decrementing: zero after a decrement means no turns,
+        // but zero when dequeued means the person has infinite turns.
+        var hasInfiniteTurns = person.Turns <= 0;
+
+        // Positive turns are used up one at a time. Values of zero or less
+        // represent infinite turns, so they are not changed.
+        if (!hasInfiniteTurns)
+        {
+            person.Turns -= 1;
         }
+
+        // Requeue people who still have turns, including infinite-turn people.
+        if (hasInfiniteTurns || person.Turns > 0)
+        {
+            // Returning people join the back and wait behind the other people.
+            _people.Enqueue(person);
+        }
+
+        return person;
     }
 
     public override string ToString()
