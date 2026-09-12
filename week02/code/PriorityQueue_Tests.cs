@@ -11,7 +11,7 @@ public class PriorityQueueTests
     // first and removed from the queue.
     // Defect(s) Found: The last item was skipped while looking for the highest priority, and the
     // returned item was not removed from the queue.
-    public void TestPriorityQueue_HighestPriorityAndRemoval()
+    public void TestPriorityQueue_1()
     {
         var priorityQueue = new PriorityQueue();
         priorityQueue.Enqueue("Low", 1);
@@ -29,7 +29,7 @@ public class PriorityQueueTests
     // Scenario: Add two items with the same highest priority, separated by a lower-priority item.
     // Expected Result: The earlier high-priority item is returned first, followed by the later one.
     // Defect(s) Found: Equal priorities selected the item later in the queue instead of following FIFO.
-    public void TestPriorityQueue_EqualPrioritiesUseFifo()
+    public void TestPriorityQueue_2()
     {
         var priorityQueue = new PriorityQueue();
         priorityQueue.Enqueue("First high", 10);
