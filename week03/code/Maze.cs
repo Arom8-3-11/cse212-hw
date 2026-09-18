@@ -25,14 +25,25 @@ public class Maze
         _mazeMap = mazeMap;
     }
 
-    // TODO Problem 4 - ADD YOUR CODE HERE
+    private void Move(int directionIndex, int deltaX, int deltaY)
+    {
+        // Check the current cell before changing the location.
+        if (!_mazeMap[(_currX, _currY)][directionIndex])
+            throw new InvalidOperationException("Can't go that way!");
+
+        // Apply the x/y change for the selected direction.
+        _currX += deltaX;
+        _currY += deltaY;
+    }
+
     /// <summary>
     /// Check to see if you can move left.  If you can, then move.  If you
     /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
     /// </summary>
     public void MoveLeft()
     {
-        // FILL IN CODE
+        // Direction index 0 = left.
+        Move(0, -1, 0);
     }
 
     /// <summary>
@@ -41,7 +52,8 @@ public class Maze
     /// </summary>
     public void MoveRight()
     {
-        // FILL IN CODE
+        // Direction index 1 = right.
+        Move(1, 1, 0);
     }
 
     /// <summary>
@@ -50,7 +62,8 @@ public class Maze
     /// </summary>
     public void MoveUp()
     {
-        // FILL IN CODE
+        // Direction index 2 = up.
+        Move(2, 0, -1);
     }
 
     /// <summary>
@@ -59,7 +72,8 @@ public class Maze
     /// </summary>
     public void MoveDown()
     {
-        // FILL IN CODE
+        // Direction index 3 = down.
+        Move(3, 0, 1);
     }
 
     public string GetStatus()

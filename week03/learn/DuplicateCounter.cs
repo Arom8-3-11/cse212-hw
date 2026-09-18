@@ -24,14 +24,17 @@
 
     private static int CountDuplicates(int[] data)
     {
+        // The set stores values the loop has already encountered.
         var unique = new HashSet<int>();
         var duplicates = 0;
 
         foreach (var value in data)
         {
+            // A value already in the set is another occurrence of a duplicate.
             if (unique.Contains(value))
                 duplicates++;
             else
+                // Store the value so future occurrences can be detected.
                 unique.Add(value);
         }
 

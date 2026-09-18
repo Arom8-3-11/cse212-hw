@@ -24,6 +24,7 @@ public class Translator
     /// <returns>fixed array of divisors</returns>
     public void AddWord(string fromWord, string toWord)
     {
+        // The source word is the key and its translation is the value.
         _words[fromWord] = toWord;
     }
 
@@ -34,6 +35,7 @@ public class Translator
     /// <returns>The translated word or "???" if no translation is available</returns>
     public string Translate(string fromWord)
     {
+        // TryGetValue returns the stored translation or the required fallback.
         return _words.TryGetValue(fromWord, out var translation) ? translation : "???";
     }
 }

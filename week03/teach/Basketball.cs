@@ -17,9 +17,10 @@ public class Basketball
 {
     public static void Run()
     {
+        // Store each player's running career total by player ID.
         var players = new Dictionary<string, int>();
 
-        using var reader = new TextFieldParser("basketball.csv");
+        using var reader = new TextFieldParser(Path.Combine(AppContext.BaseDirectory, "basketball.csv"));
         reader.TextFieldType = FieldType.Delimited;
         reader.SetDelimiters(",");
         reader.ReadFields(); // ignore header row
@@ -27,10 +28,20 @@ public class Basketball
             var fields = reader.ReadFields()!;
             var playerId = fields[0];
             var points = int.Parse(fields[8]);
+
+            // Add to the existing total, or create the player's first total.
+            if (players.ContainsKey(playerId))
+                players[playerId] += points;
+            else
+                players[playerId] = points;
         }
 
-        Console.WriteLine($"Players: {{{string.Join(", ", players)}}}");
+        // Convert the map to an array and sort from highest to lowest score.
+        var topPlayers = players.ToArray();
+        Array.Sort(topPlayers, (first, second) => second.Value - first.Value);
 
-        var topPlayers = new string[10];
+        Console.WriteLine();
+        for (var i = 0; i < 10; ++i)
+            Console.WriteLine(topPlayers[i]);
     }
 }
