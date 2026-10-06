@@ -11,6 +11,7 @@ public class Node
 
     public void Insert(int value)
     {
+        // A matching value is already in the set, so do not add it again.
         if (value == Data)
             return;
 
@@ -37,6 +38,7 @@ public class Node
         if (value == Data)
             return true;
 
+        // The BST ordering means the value can only be in one subtree.
         if (value < Data)
             return Left is not null && Left.Contains(value);
 
@@ -45,6 +47,7 @@ public class Node
 
     public int GetHeight()
     {
+        // A missing child contributes height 0; this node adds one level.
         int leftHeight = Left?.GetHeight() ?? 0;
         int rightHeight = Right?.GetHeight() ?? 0;
         return 1 + Math.Max(leftHeight, rightHeight);

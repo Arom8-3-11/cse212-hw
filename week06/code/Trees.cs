@@ -51,6 +51,7 @@ public static class Trees
         if (first > last)
             return;
 
+        // Insert the midpoint first so the values split across both subtrees.
         int middle = first + (last - first) / 2;
         bst.Insert(sortedNumbers[middle]);
         InsertMiddle(sortedNumbers, first, middle - 1, bst);

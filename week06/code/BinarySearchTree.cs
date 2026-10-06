@@ -82,6 +82,7 @@ public class BinarySearchTree : IEnumerable<int>
     {
         if (node is not null)
         {
+            // Reverse in-order traversal visits values from largest to smallest.
             TraverseBackward(node.Right, values);
             values.Add(node.Data);
             TraverseBackward(node.Left, values);
